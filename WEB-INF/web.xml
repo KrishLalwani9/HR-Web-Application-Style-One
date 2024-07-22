@@ -29,5 +29,14 @@
 
     <request-character-encoding>UTF-8</request-character-encoding>
 
+<servlet>
+<servlet-name>DesignationsView</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.DesignationsView</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>DesignationsView</servlet-name>
+<url-pattern>/designationsView</url-pattern>
+</servlet-mapping>
+
 
 </web-app>

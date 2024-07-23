@@ -47,6 +47,7 @@ pw.println("<!-- right panel starts here -->");
 pw.println("<div style='height:65vh;margin-top:5px;margin-bottom:5px;margin-left:105px;margin-right:5px;padding:5px;border:1px solid black'>");
 pw.println("<h3>Notification</h3>");
 pw.println("Designation added<br>");
+pw.println("Add more Designations ?<br>");
 pw.println("<table>");
 pw.println("<tr>");
 pw.println("<td>");
@@ -70,10 +71,8 @@ pw.println("</div> <!-- footer ends here -->");
 pw.println("</div> <!-- Main Continer ends here -->");
 pw.println("</body>");
 pw.println("</html>");
-
 }catch(DAOException daoException)
 {
-System.out.println("*************** gohfahgfha");
 pw.println("<!DOCTYPE HTML>");
 pw.println("<html lang='en'>");
 pw.println("<head>");
@@ -92,6 +91,10 @@ pw.println("frm.title.focus();");
 pw.println("return false;");
 pw.println("}");
 pw.println("return true;");
+pw.println("}");
+pw.println("function cencelAddition()");
+pw.println("{");
+pw.println("document.getElementById('cencelAdditionForm').submit();");
 pw.println("}");
 pw.println("</script>");
 pw.println("</head>");
@@ -112,25 +115,15 @@ pw.println("<a href='/styleone/index.html'>Home</a>");
 pw.println("</div> <!-- left panel ends here -->");
 pw.println("<!-- right panel starts here -->");
 pw.println("<div style='height:65vh;margin-top:5px;margin-bottom:5px;margin-left:105px;margin-right:5px;padding:5px;border:1px solid black'>");
-pw.println("<h2>Add (Designation Module)</h2>");
+pw.println("<h2>Designation (Add Module)</h2>");
 pw.println("<div style='color:red'>"+daoException.getMessage()+"</div>");
-//pw.println("<table>");
-//pw.println("<tr>");
-//pw.println("<td>");
 pw.println("<form action='/styleone/addDesignation' onsubmit='return validateForm(this)'>");
 pw.println("Designation"); 
 pw.println("<input type='text' id='title' name='title' maxlength='35' size='36' value='"+title+"'>");
 pw.println("<span id='titleErrorSection' style='color:red'></span><br>");
-pw.println("<button type='submit' style='float:left'>Add</button>");
+pw.println("<button type='submit'>Add</button>");
+pw.println("<button type='button' onclick='cencelAddition()'>Cencel</button>");
 pw.println("</form>");
-//pw.println("</td>");
-//pw.println("<td>");
-pw.println("<form action='/styleone/designationsView'>");
-pw.println("<button type='submit'>Cancel</button>");
-pw.println("</form>");
-//pw.println("</td>");
-//pw.println("</tr>");
-//pw.println("</table>");
 pw.println("</div> <!-- right panel ends here -->");
 pw.println("</div> <!-- conten-section ends here -->");
 pw.println("<!-- footer starts here -->");
@@ -138,9 +131,10 @@ pw.println("<div style='width:90hw;height:auto;margin:5px;text-align:center;bord
 pw.println("&copy; Krish Lalwani 2050");
 pw.println("</div> <!-- footer ends here -->");
 pw.println("</div> <!-- Main Continer ends here -->");
+pw.println("<form id='cencelAdditionForm' action='/styleone/designationsView'>");
+pw.println("</form>");
 pw.println("</body>");
 pw.println("</html>");
-
 }
 catch(Exception exception)
 {

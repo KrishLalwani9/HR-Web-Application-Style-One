@@ -75,14 +75,13 @@ Connection connection=DAOConnection.getConnection();
 PreparedStatement preparedStatement=connection.prepareStatement("select * from designation where code=?");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
-if(resultSet.next()==false)
+if(!resultSet.next())
 {
 resultSet.close();
 preparedStatement.close();
 connection.close();
 throw new DAOException("Invalid designation code : "+code);
 }
-preparedStatement.close();
 DesignationDTO designation=new DesignationDTO();
 designation.setCode(resultSet.getInt("code"));
 designation.setTitle(resultSet.getString("title").trim());
@@ -95,6 +94,7 @@ return designation;
 throw new DAOException(exception.getMessage());
 }
 }
+//***********************************************************************************
 public void updateDesignation(DesignationDTO designation) throws DAOException
 {
 try
@@ -116,7 +116,7 @@ resultSet.close();
 preparedStatement.close();
 preparedStatement=connection.prepareStatement("Select * from designation where title=? and code !=?");
 preparedStatement.setString(1,title);
-//preparedStatement.setCode(2,code);
+preparedStatement.setInt(2,code);
 resultSet=preparedStatement.executeQuery();
 if(resultSet.next())
 {

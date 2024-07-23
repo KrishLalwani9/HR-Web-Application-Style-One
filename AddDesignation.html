@@ -17,6 +17,10 @@ return false;
 }
 return true;
 }
+function cancelAddition()
+{
+document.getElementById('cencelAdditionForm').submit();
+}
 </script>
 </head>
 <body>
@@ -36,16 +40,14 @@ return true;
 </div> <!-- left panel ends here -->
 <!-- right panel starts here -->
 <div style='height:65vh;margin-top:5px;margin-bottom:5px;margin-left:105px;margin-right:5px;padding:5px;border:1px solid black'>
-<h2>Add (Designation Module)</h2>
+<h2>Designation (Add Module)</h2>
 <form action='/styleone/addDesignation' onsubmit='return validateForm(this)'>
 Designation
 <input type='text' id='title' name='title' maxlength='35' size='36'>
 <span id='titleErrorSection' style='color:red'></span><br>
-<button type='submit' style='float:left'>Add</button> 
-</form>
-<form action='/styleone/designationsView'>
-<button type='submit'>Cancel</button>
-</form>
+<button type='submit'>Add</button> 
+<button type='button' onclick='cancelAddition()'>Cancel</button>
+</form> 
 </div> <!-- right panel ends here -->
 </div> <!-- conten-section ends here -->
 <!-- footer starts here -->
@@ -53,5 +55,7 @@ Designation
 &copy; Krish Lalwani 2050
 </div> <!-- footer ends here -->
 </div> <!-- Main Continer ends here -->
+<form id='cencelAdditionForm' action='/styleone/designationsView'>
+</form>
 </body>
 </html>

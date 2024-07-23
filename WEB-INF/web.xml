@@ -47,5 +47,13 @@
 <url-pattern>/addDesignation</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>EditDesignation</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.EditDesignation</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>EditDesignation</servlet-name>
+<url-pattern>/editDesignation</url-pattern>
+</servlet-mapping>
 
 </web-app>

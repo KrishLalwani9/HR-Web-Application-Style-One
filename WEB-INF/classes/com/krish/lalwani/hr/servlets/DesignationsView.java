@@ -14,7 +14,6 @@ DesignationDAO designationDAO=new DesignationDAO();
 List<DesignationDTO> designations=designationDAO.getAll();
 PrintWriter pw=response.getWriter();
 response.setContentType("text/html");
-System.out.println("Got the load*********************************************************88");
 pw.println("<!DOCTYPE HTML>");
 pw.println("<html lang='en'>");
 pw.println("<head>");

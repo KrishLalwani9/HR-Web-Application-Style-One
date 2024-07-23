@@ -67,4 +67,75 @@ throw new DAOException(exception.getMessage());
 }
 return designations;
 }
+public DesignationDTO getByCode(int code) throws DAOException
+{
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement=connection.prepareStatement("select * from designation where code=?");
+preparedStatement.setInt(1,code);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next()==false)
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Invalid designation code : "+code);
+}
+preparedStatement.close();
+DesignationDTO designation=new DesignationDTO();
+designation.setCode(resultSet.getInt("code"));
+designation.setTitle(resultSet.getString("title").trim());
+resultSet.close();
+preparedStatement.close();
+connection.close();
+return designation;
+}catch(Exception exception)
+{
+throw new DAOException(exception.getMessage());
+}
+}
+public void updateDesignation(DesignationDTO designation) throws DAOException
+{
+try
+{
+int code=designation.getCode();
+String title=designation.getTitle();
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement=connection.prepareStatement("select * from designation where code=?");
+preparedStatement.setInt(1,code);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next()==false)
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Invalid designation code : "+code);
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("Select * from designation where title=? and code !=?");
+preparedStatement.setString(1,title);
+//preparedStatement.setCode(2,code);
+resultSet=preparedStatement.executeQuery();
+if(resultSet.next())
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Designation : "+title+" exists.");
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("update designation set title=? where code=?");
+preparedStatement.setString(1,title);
+preparedStatement.setInt(2,code);
+preparedStatement.executeUpdate();
+preparedStatement.close();
+connection.close();
+}catch(Exception exception)
+{
+throw new DAOException(exception.getMessage()); // remove after testing
+}
+}
 }

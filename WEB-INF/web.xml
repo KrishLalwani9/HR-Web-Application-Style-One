@@ -65,4 +65,22 @@
 <url-pattern>/updateDesignation</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>ConfirmDeleteDesignation</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.ConfirmDeleteDesignation</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ConfirmDeleteDesignation</servlet-name>
+<url-pattern>/confirmDeleteDesignation</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>DeleteDesignation</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.DeleteDesignation</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>DeleteDesignation</servlet-name>
+<url-pattern>/deleteDesignation</url-pattern>
+</servlet-mapping>
+
 </web-app>

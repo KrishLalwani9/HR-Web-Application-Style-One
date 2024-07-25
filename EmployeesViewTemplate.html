@@ -1,0 +1,160 @@
+
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>HR Application</title>
+<script>
+function Employee() //this is class 
+{
+this.employeeId=""; //this is public properties 
+this.name="";
+this.designation="";
+this.dateOfBirth="";
+this.gender="";
+this.isIndian=true;
+this.basicSalary="";
+this.panNumber="";
+this.aadharCardNumber="";
+}
+var employees=[];
+employee=new Employee();
+employee.employeeId="A100001";
+employee.name="Ronak Sharma";
+employee.designation="Devloper";
+employee.dateOfBirth="28/06/2000";
+employee.gender="Male";
+employee.isIndian=true;
+employee.basicSalary="2000000"
+employee.panNumber="pan3448u599528";
+employee.aadharCardNumber="aadhar390uu459";
+employees[0]=employee;
+employee=new Employee();
+employee.employeeId="A100002";
+employee.name="Harsh Gujarati";
+employee.designation="Superviser";
+employee.dateOfBirth="19/02/1900";
+employee.gender="Male"
+employee.isIndian=false;
+employee.basicSalary="5000000"
+employee.panNumber="pan4949485";
+employee.aadharCardNumber="aadhar943i494";
+employees[1]=employee;
+var selectedRow=null;
+var i=0;
+function selectEmployee(row,employeeId)
+{
+if(row==selectedRow) return;
+if(selectedRow!=null)
+{
+selectedRow.style.background='white'
+selectedRow.style.color='black';
+}
+row.style.background='#7C7B7B';
+row.style.color='white';
+selectedRow=row;
+for(i=0;i<employees.length;i++)
+{
+if(employees[i].employeeId==employeeId)
+{
+document.getElementById('detailsPanel_employeeId').innerHTML=employees[i].employeeId;
+document.getElementById('detailsPanel_name').innerHTML=employees[i].name;
+document.getElementById('detailsPanel_designation').innerHTML=employees[i].designation;
+document.getElementById('detailsPanel_dateOfBirth').innerHTML=employees[i].dateOfBirth;
+document.getElementById('detailsPanel_gender').innerHTML=employees[i].gender;
+document.getElementById('detailsPanel_isIndian').innerHTML=((employees[i].isIndian) ? 'Yes' : 'No');
+document.getElementById('detailsPanel_basicSalary').innerHTML=employees[i].basicSalary;
+document.getElementById('detailsPanel_panNumber').innerHTML=employees[i].panNumber;
+document.getElementById('detailsPanel_aadharCardNumber').innerHTML=employees[i].aadharCardNumber;
+break;
+}
+}
+}
+</script>
+</head>
+<body>
+<!-- Main Continer starts here -->
+<div style='width:90hw;margin:30px;height:auto;border:1px solid black'>
+<!-- header starts here -->
+<div style='margin:5px;width:90hw;height:auto;border:1px solid black'>
+<a href='/styleone/index.html'><img src='/styleone/images/logo.png' style='float:left'></a><div style='margin-top=30px;margin-bottom:20px;font-size:25pt'>Krish Lalwani</div>
+</div> <!-- header ends here -->
+<!-- content-section starts here -->
+<div style='width:90hw;height:70vh;margin:5px;border:1px solid white'>
+<!-- left panel starts here -->
+<div style='height:65vh;margin:5px;float:left;padding:5px;border:1px solid black'>
+<a href='/styleone/designationsView'>Designations</a><br>
+<b>Employees</b><br><br>
+<a href='/styleone/index.html'>Home</a>
+</div> <!-- left panel ends here -->
+<!-- right panel starts here -->
+<div style='height:65vh;margin-top:5px;margin-bottom:5px;margin-left:105px;margin-right:5px;padding:5px;border:1px solid black'>
+<!-- table panel starts here -->
+<div style='height:40vh;margin:5px;padding:5px;overflow:scroll;border:1px solid black'>
+<h3>Employees</h3>
+<table border='1'>
+<thead>
+<tr>
+<th colspan='6' style='text-align:right;padding:5px'>
+<a href='/styleone/getEmployeeAddForm'>Add Employee</a>
+</th>
+</tr>
+<tr>
+<th style='width:60px;text-align:center'>S.No.</th>
+<th style='width:200px'>Id.</th>
+<th style='width:200px'>Name</th>
+<th style='width:200px'>Designation</th>
+<th style='width:100px'> Edit </th>
+<th style='width:100px'> Delete </th>
+</tr>
+</thead>
+<tbody>
+<tr style='cursor:pointer' onclick='selectEmployee(this,"A100001")'>
+<td style='text-align:right'>1</td>
+<td style='text-align:right'>A100001</td>
+<td>Ronak Sharma</td>
+<td>Developer</td>
+<td style='text-align:center'><a href='/styleone/editEmployee?employeeId=A100001'>Edit</a> </td>
+<td style='text-align:center'><a href='/styleone/confirmDeleteEmployee?employeeId=A100001'>Delete</a> </td>
+</tr>
+<tr style='cursor:pointer' onclick='selectEmployee(this,"A100002")'>
+<td style='text-align:right'>2</td>
+<td style='text-align:right'>A100002</td>
+<td>Harsh Gujarati</td>
+<td>Supervisor</td>
+<td style='text-align:center'> <a href='/styleone/editEmployee?employeeId=A100002'>Edit</a> </td>
+<td style='text-align:center'> <a href='/styleone/confirmDeleteEmployee?employeeId=A100002'>Delete</a> </td>
+</tr>
+</tbody>
+</table>
+</div><!-- table panel ends here -->
+<!-- details panel starts here -->
+<div style='height:19vh;marigin:5px;padding:5px;border:1px solid black'>
+<lable style='background:gray;color:white;padding-left:5px;padding-right:5px'>Details</lable>
+<table border='0' width='100%'>
+<tr>
+<td>EmployeeId : <span id='detailsPanel_employeeId' style='margin-right:30px'></span></td>
+<td>Name : <span id='detailsPanel_name' style='margin-right:30px'></span></td>
+<td>Desigantion : <span id='detailsPanel_designation' style='margin-right:30px'></span></td>
+</tr>
+<tr>
+<td>Date of birth : <span id='detailsPanel_dateOfBirth' style='margin-right:30px'></span></td>
+<td>Gender : <span id='detailsPanel_gender' style='margin-right:30px'></span></td>
+<td>IsIndian : <span id='detailsPanel_isIndian' style='margin-right:30px'></span></td>
+</tr>
+<tr>
+<td>Basic Salary : <span id='detailsPanel_basicSalary' style='margin-right:30px'></span></td>
+<td>PAN Number : <span id='detailsPanel_panNumber' style='margin-right:30px'></span></td>
+<td>Aadhar Card Number : <span id='detailsPanel_aadharCardNumber' style='margin-right:30px'></span></td>
+</tr>
+</table>
+</div><!-- details panel ends here -->
+</div> <!-- right panel ends here -->
+</div> <!-- conten-section ends here -->
+<!-- footer starts here -->
+<div style='width:90hw;height:auto;margin:5px;text-align:center;border:1px solid white'>
+&copy; Krish Lalwani 2050
+</div> <!-- footer ends here -->
+</div> <!-- Main Continer ends here -->
+</body>
+</html>

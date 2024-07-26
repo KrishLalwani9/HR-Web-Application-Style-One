@@ -83,4 +83,13 @@
 <url-pattern>/deleteDesignation</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>EmployeesView</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.EmployeesView</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>EmployeesView</servlet-name>
+<url-pattern>/employeesView</url-pattern>
+</servlet-mapping>
+
 </web-app>

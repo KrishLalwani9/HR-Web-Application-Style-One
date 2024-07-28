@@ -129,7 +129,7 @@ for(EmployeeDTO employee : employees)
 {
 pw.println("<tr style='cursor:pointer' onclick='selectEmployee(this,\""+employee.getEmployeeId()+"\")'>");
 pw.println("<td style='text-align:right'>"+i+"</td>");
-pw.println("<td style='text-align:right'>"+employee.getEmployeeId()+"</td>");
+pw.println("<td>"+employee.getEmployeeId()+"</td>");
 pw.println("<td>"+employee.getName()+"</td>");
 pw.println("<td>"+employee.getDesignation()+"</td>");
 pw.println("<td style='text-align:center'><a href='/styleone/editEmployee?employeeId="+employee.getEmployeeId()+"'>Edit</a> </td>");

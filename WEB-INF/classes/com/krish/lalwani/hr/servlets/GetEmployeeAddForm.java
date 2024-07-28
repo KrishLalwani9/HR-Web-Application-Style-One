@@ -1,3 +1,19 @@
+package com.krish.lalwani.hr.servlets;
+import com.krish.lalwani.hr.dl.*;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.util.*;
+public class GetEmployeeAddForm extends HttpServlet
+{
+public void doGet(HttpServletRequest request, HttpServletResponse response)
+{
+PrintWriter pw=null;
+try
+{
+pw=response.getWriter();
+response.setContentType("text/html");
+List<DesignationDTO> designations=new DesignationDAO().getAll();
 pw.println("<!DOCTYPE HTML>");
 pw.println("<html lang='en'>");
 pw.println("<head>");
@@ -151,10 +167,11 @@ pw.println("<td>Designation</td>");
 pw.println("<td>");
 pw.println("<select id='designationCode' name='designationCode'>");
 pw.println("<option value='-1'>&lt;Select Designation&gt;</option>");
-pw.println("<option value='1'>Manager</option>");
-pw.println("<option value='2'>Clerk</option>");
-pw.println("<option value='3'>Driver</option>");
-pw.println("<option value='4'>Cook</option>");
+
+for(DesignationDTO designation : designations)
+{
+pw.println("<option value='"+(designation.getCode())+"'>"+designation.getTitle()+"</option>");
+}
 pw.println("</select>");
 pw.println("<span id='designationCodeErrorSection' style='color:red'></span><br>");
 pw.println("</td>");
@@ -162,7 +179,7 @@ pw.println("</tr>");
 pw.println("<tr>");
 pw.println("<td>Date of birth</td>");
 pw.println("<td>");
-pw.println("<input type='date' id='dateOfBirth' name='dateOfBirth'>");
+pw.println("<input type='date' id='dateOfBirth' name='dateOfBirth' value='1970-01-01'>");
 pw.println("<span id='dateOfBirthErrorSection' style='color:red'></span><br>");
 pw.println("</td>");
 pw.println("</tr>");
@@ -171,7 +188,7 @@ pw.println("<td>Gender</td>");
 pw.println("<td>");
 pw.println("<input type='radio' id='male' name='gender' value='M'>Male");
 pw.println("&nbsp;&nbsp;&nbsp;&nbsp;");
-pw.println("<input type='radio' id='female' name='gender' vlaue='F'>Female");
+pw.println("<input type='radio' id='female' name='gender' value='F'>Female");
 pw.println("<span id='genderErrorSection' style='color:red'></span><br>");
 pw.println("</td>");
 pw.println("</tr>");
@@ -221,3 +238,15 @@ pw.println("<form id='cancelAdditionForm' action='/styleone/employeesView'>");
 pw.println("</form>");
 pw.println("</body>");
 pw.println("</html>");
+
+
+}catch(Exception exception)
+{
+System.out.println(exception.getMessage());
+}
+}
+public void doPost(HttpServletRequest request,HttpServletResponse response)
+{
+doGet(request,response);
+}
+}

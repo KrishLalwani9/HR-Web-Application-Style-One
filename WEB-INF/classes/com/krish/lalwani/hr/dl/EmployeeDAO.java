@@ -59,4 +59,103 @@ throw new DAOException(exception.getMessage());
 }
 return employees;
 }
+
+public void addEmployee(EmployeeDTO employee) throws DAOException
+{
+String name=employee.getName();
+int designationCode=employee.getDesignationCode();
+java.util.Date utilDateOfBirth=employee.getDateOfBirth();
+java.sql.Date dateOfBirth=new java.sql.Date(utilDateOfBirth.getYear(),utilDateOfBirth.getMonth(),utilDateOfBirth.getDate()); //because java.sql.date is derived class of java.util.Date so could not store java.util.Date pointer or base pointer
+String gender=employee.getGender();
+boolean isIndian=employee.getIsIndian();
+BigDecimal basicSalary=employee.getBasicSalary();
+String panNumber=employee.getPANNumber();
+String aadharCardNumber=employee.getAadharCardNumber();
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement=connection.prepareStatement("select id from employee where pan_number=?");
+preparedStatement.setString(1,panNumber);
+ResultSet resultSet=preparedStatement.executeQuery();
+while(resultSet.next())
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("PAN Number : "+panNumber+" exists.");
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("select id from employee where aadhar_card_number=?");
+preparedStatement.setString(1,aadharCardNumber);
+resultSet=preparedStatement.executeQuery();
+while(resultSet.next())
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Aadhar Card Number : "+aadharCardNumber+" exists.");
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("insert into employee (name,designation_code,date_of_birth,gender,is_indian,basic_salary,pan_number,aadhar_card_number) values (?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+preparedStatement.setString(1,name);
+preparedStatement.setInt(2,designationCode);
+preparedStatement.setDate(3,dateOfBirth);
+preparedStatement.setString(4,gender);
+preparedStatement.setBoolean(5,isIndian);
+preparedStatement.setBigDecimal(6,basicSalary);
+preparedStatement.setString(7,panNumber);
+preparedStatement.setString(8,aadharCardNumber);
+preparedStatement.executeUpdate();
+resultSet=preparedStatement.getGeneratedKeys(); 
+resultSet.next();
+employee.setEmployeeId("A"+resultSet.getInt(1));
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(SQLException sqlException)
+{
+throw new DAOException(sqlException.getMessage());
+}
+}
+public boolean panNumberExists(String panNumber) throws DAOException
+{
+boolean exists=false;
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement=connection.prepareStatement("select gender from employee where pan_number=?");
+preparedStatement.setString(1,panNumber);
+ResultSet resultSet=preparedStatement.executeQuery();
+exists=resultSet.next();
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(Exception exception)
+{
+throw new DAOException(exception.getMessage());
+}
+return exists;
+}
+public boolean aadharCardNumberExists(String aadharCardNumber) throws DAOException
+{
+boolean exists=false;
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement=connection.prepareStatement("select gender from employee where aadhar_card_number=?");
+preparedStatement.setString(1,aadharCardNumber);
+ResultSet resultSet=preparedStatement.executeQuery();
+exists=resultSet.next();
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(Exception exception)
+{
+throw new DAOException(exception.getMessage());
+}
+return exists;
+}
+
 }

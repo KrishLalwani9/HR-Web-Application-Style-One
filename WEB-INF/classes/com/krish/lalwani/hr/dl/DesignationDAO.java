@@ -72,7 +72,7 @@ public DesignationDTO getByCode(int code) throws DAOException
 try
 {
 Connection connection=DAOConnection.getConnection();
-PreparedStatement preparedStatement=connection.prepareStatement("select * from designation where code=?");
+PreparedStatement preparedStatement=connection.prepareStatement("select code from designation where code=?");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(!resultSet.next())
@@ -102,7 +102,7 @@ try
 int code=designation.getCode();
 String title=designation.getTitle();
 Connection connection=DAOConnection.getConnection();
-PreparedStatement preparedStatement=connection.prepareStatement("select * from designation where code=?");
+PreparedStatement preparedStatement=connection.prepareStatement("select code from designation where code=?");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(resultSet.next()==false)
@@ -114,7 +114,7 @@ throw new DAOException("Invalid designation code : "+code);
 }
 resultSet.close();
 preparedStatement.close();
-preparedStatement=connection.prepareStatement("Select * from designation where title=? and code !=?");
+preparedStatement=connection.prepareStatement("Select from designation where title=? and code !=?");
 preparedStatement.setString(1,title);
 preparedStatement.setInt(2,code);
 resultSet=preparedStatement.executeQuery();
@@ -143,7 +143,7 @@ public void deleteDesignation(int code) throws DAOException
 try
 {
 Connection connection=DAOConnection.getConnection();
-PreparedStatement preparedStatement=connection.prepareStatement("select * from designation where code=?");
+PreparedStatement preparedStatement=connection.prepareStatement("select code from designation where code=?");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(resultSet.next()==false)
@@ -155,7 +155,18 @@ throw new DAOException("Invalid designation code : "+code);
 }
 resultSet.close();
 preparedStatement.close();
-//one check pending related to if this designation has been alloted to employee
+preparedStatement=connection.prepareStatement("select gender form employee where designation_code=?");
+preparedStatement.setInt(1,code);
+resultSet=preparedStatement.executeQuery();
+while(resultSet.next())
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Cannot Delete designation as Employees havae been alloted with this Designation");
+}
+resultSet.close();
+preparedStatement.close();
 preparedStatement=connection.prepareStatement("delete from designation where code=?");
 preparedStatement.setInt(1,code);
 preparedStatement.executeUpdate();
@@ -165,5 +176,24 @@ connection.close();
 {
 throw new DAOException(exception.getMessage()); // remove after testing
 }
+}
+public boolean designationCodeExists(int code) throws DAOException
+{
+boolean exists=false;
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement=connection.prepareStatement("select code from designation where code=?");
+preparedStatement.setInt(1,code);
+ResultSet resultSet=preparedStatement.executeQuery();
+exists=resultSet.next();
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(Exception exception)
+{
+throw new DAOException(exception.getMessage());
+}
+return exists;
 }
 }

@@ -92,4 +92,22 @@
 <url-pattern>/employeesView</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>GetEmployeeAddForm</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.GetEmployeeAddForm</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetEmployeeAddForm</servlet-name>
+<url-pattern>/getEmployeeAddForm</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>AddEmployee</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.AddEmployee</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>AddEmployee</servlet-name>
+<url-pattern>/addEmployee</url-pattern>
+</servlet-mapping>
+
 </web-app>

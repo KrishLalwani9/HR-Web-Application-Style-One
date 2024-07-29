@@ -72,7 +72,7 @@ public DesignationDTO getByCode(int code) throws DAOException
 try
 {
 Connection connection=DAOConnection.getConnection();
-PreparedStatement preparedStatement=connection.prepareStatement("select code from designation where code=?");
+PreparedStatement preparedStatement=connection.prepareStatement("select * from designation where code=?");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(!resultSet.next())
@@ -102,7 +102,7 @@ try
 int code=designation.getCode();
 String title=designation.getTitle();
 Connection connection=DAOConnection.getConnection();
-PreparedStatement preparedStatement=connection.prepareStatement("select code from designation where code=?");
+PreparedStatement preparedStatement=connection.prepareStatement("select (title) from designation where code=?");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(resultSet.next()==false)
@@ -114,7 +114,7 @@ throw new DAOException("Invalid designation code : "+code);
 }
 resultSet.close();
 preparedStatement.close();
-preparedStatement=connection.prepareStatement("Select from designation where title=? and code !=?");
+preparedStatement=connection.prepareStatement("Select (title) from designation where title=? and code !=?");
 preparedStatement.setString(1,title);
 preparedStatement.setInt(2,code);
 resultSet=preparedStatement.executeQuery();
@@ -133,7 +133,7 @@ preparedStatement.setInt(2,code);
 preparedStatement.executeUpdate();
 preparedStatement.close();
 connection.close();
-}catch(Exception exception)
+}catch(SQLException exception)
 {
 throw new DAOException(exception.getMessage()); // remove after testing
 }
@@ -155,7 +155,7 @@ throw new DAOException("Invalid designation code : "+code);
 }
 resultSet.close();
 preparedStatement.close();
-preparedStatement=connection.prepareStatement("select gender form employee where designation_code=?");
+preparedStatement=connection.prepareStatement("select gender from employee where designation_code=?");
 preparedStatement.setInt(1,code);
 resultSet=preparedStatement.executeQuery();
 while(resultSet.next())
@@ -172,7 +172,7 @@ preparedStatement.setInt(1,code);
 preparedStatement.executeUpdate();
 preparedStatement.close();
 connection.close();
-}catch(Exception exception)
+}catch(SQLException exception)
 {
 throw new DAOException(exception.getMessage()); // remove after testing
 }

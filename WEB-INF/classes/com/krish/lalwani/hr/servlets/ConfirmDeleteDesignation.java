@@ -78,6 +78,7 @@ pw.println("</body>");
 pw.println("</html>");
 }catch(DAOException daoException)
 {
+System.out.println(daoException.getMessage());
 sendBackView(response);
 return;
 }
